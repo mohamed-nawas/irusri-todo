@@ -1,0 +1,25 @@
+# application config
+spring:
+  application:
+    name: Todo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/todo_db?createDatabaseIfNotExist=true
+    username: root
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#server config
+server:
+  servlet:
+    context-path: /todo
+
+#security configs
+token:
+  expirationms: 3600000
+  secret:
+    key: vuh6PqHeEV74AagN23BRlV2uEOYvyn2S2C3se2Oj4R6UIVUuxLRXF0m294gq07OjTzPgk6vrq4eX4tcWk5Vbbw==
