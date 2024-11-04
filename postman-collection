@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "c8d5d2a2-6f94-4ac6-ac71-a26816cab08d",
+		"name": "irusri-todo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20552214"
+	},
+	"item": [
+		{
+			"name": "user-register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"nawas\",\n    \"email\": \"mgmnawas@outlook.com\",\n    \"pwd\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{main}}/api/v1/auth/register",
+					"host": [
+						"{{main}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"pm.environment.set('token', response.data.token)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mgmnawas@outlook.com\",\n    \"pwd\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{main}}/api/v1/auth/login",
+					"host": [
+						"{{main}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create todo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"WORK\",\n    \"description\": \"Todo item-1 by nawas\",\n    \"priority\": \"MEDIUM\",\n    \"dueDate\": \"2024-12-31\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{main}}/api/v1/todo/create",
+					"host": [
+						"{{main}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get todos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main}}/api/v1/todo?size=10&page=0",
+					"host": [
+						"{{main}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo"
+					],
+					"query": [
+						{
+							"key": "ascending",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "searchTerm",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete todo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{main}}/api/v1/todo/delete/TID-6ab259c7-a3a4-4907-b64a-e26be7bb4dd7",
+					"host": [
+						"{{main}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"delete",
+						"TID-6ab259c7-a3a4-4907-b64a-e26be7bb4dd7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update todo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{main}}/api/v1/todo/update/TID-6ab259c7-a3a4-4907-b64a-e26be7bb4dd7?status=COMPLETED",
+					"host": [
+						"{{main}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"update",
+						"TID-6ab259c7-a3a4-4907-b64a-e26be7bb4dd7"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "COMPLETED"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
